@@ -1,4 +1,4 @@
-## TP de Técnicas avanzadas de programación
+## TP de Técnicas avanzadas de programación - Martin Pardo
 
 Aplicación REST para gestionar el circuito anual de revisión de vehículos entre dueños y mecánicos. Permite registrar usuarios, administrar la flota, solicitar turnos en un taller y cargar los resultados de las revisiones, con seguridad basada en JWT.
 
