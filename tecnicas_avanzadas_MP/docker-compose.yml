@@ -1,0 +1,32 @@
+services:
+  mysql-ta:
+    image: mysql:8.0
+    container_name: mysql-ta
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: vehiculos_db
+      MYSQL_USER: ${DB_USERNAME:-app_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-app_password}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build: .
+    container_name: tecnicas-avanzadas
+    depends_on:
+      - mysql-ta
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      DB_USERNAME: ${DB_USERNAME:-app_user}
+      DB_PASSWORD: ${DB_PASSWORD:-app_password}
+      JWT_SECRET: ${JWT_SECRET:-cambia_esta_clave}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-86400000}
+    ports:
+      - "8080:8080"
+
+volumes:
+  mysql_data:
+

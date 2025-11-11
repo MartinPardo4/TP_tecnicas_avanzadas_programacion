@@ -1,0 +1,337 @@
+{
+  "info": {
+    "_postman_id": "2d6e0e3f-7f4d-4c61-b4a3-9d1e982d1b90",
+    "name": "Tecnicas Avanzadas - API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "codex"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Registrar usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Dueño Demo\",\n  \"email\": \"dueno@example.com\",\n  \"password\": \"secreto123\",\n  \"rol\": \"DUENO\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"dueno@example.com\",\n  \"password\": \"secreto123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Vehículos",
+      "item": [
+        {
+          "name": "Registrar vehículo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_dueno}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patente\": \"AA123BB\",\n  \"marca\": \"Toyota\",\n  \"modelo\": \"Corolla\",\n  \"anio\": 2022,\n  \"kilometraje\": 15000\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/vehiculos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehiculos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar vehículos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_dueno}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/vehiculos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "vehiculos"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Turnos",
+      "item": [
+        {
+          "name": "Solicitar turno",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_dueno}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehiculoId\": {{vehiculo_id}},\n  \"fechaTurno\": \"{{fecha_turno}}\",\n  \"observaciones\": \"Revisión anual\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/turnos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "turnos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar mis turnos (Dueño)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_dueno}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/turnos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "turnos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Turnos disponibles",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_dueno}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/turnos/disponibles?desde={{fecha_desde}}&hasta={{fecha_hasta}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "turnos",
+                "disponibles"
+              ],
+              "query": [
+                {
+                  "key": "desde",
+                  "value": "{{fecha_desde}}"
+                },
+                {
+                  "key": "hasta",
+                  "value": "{{fecha_hasta}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Confirmar turno (Mecánico)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_mecanico}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/turnos/{{turno_id}}/confirmar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "turnos",
+                "{{turno_id}}",
+                "confirmar"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Revisiones",
+      "item": [
+        {
+          "name": "Registrar revisión",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_mecanico}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"puntajes\": [10, 10, 9, 9, 10, 9, 10, 10],\n  \"comentarioMecanico\": \"Todo en orden\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/turnos/{{turno_id}}/revision",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "turnos",
+                "{{turno_id}}",
+                "revision"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ver resultado",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_dueno}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/turnos/{{turno_id}}/resultado",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "turnos",
+                "{{turno_id}}",
+                "resultado"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "token_dueno",
+      "value": ""
+    },
+    {
+      "key": "token_mecanico",
+      "value": ""
+    },
+    {
+      "key": "vehiculo_id",
+      "value": "1"
+    },
+    {
+      "key": "turno_id",
+      "value": "1"
+    },
+    {
+      "key": "fecha_turno",
+      "value": "2025-01-15T10:00:00"
+    },
+    {
+      "key": "fecha_desde",
+      "value": "2025-01-01"
+    },
+    {
+      "key": "fecha_hasta",
+      "value": "2025-01-31"
+    }
+  ]
+}
+
+
